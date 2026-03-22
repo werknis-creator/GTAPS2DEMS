@@ -4,15 +4,14 @@
 int main(int argc, char *argv[]) {
     GSGLOBAL *gsGlobal = gsKit_init_global();
     
-    dmaKit_init_all();
+    // Zmieniono z dmaKit_init_all na dmaKit_init
+    dmaKit_init(); 
     gsKit_init_screen(gsGlobal);
 
-    // W starszych wersjach używamy prostszego makra dla koloru:
-    // Parametry: Red, Green, Blue, Alpha
+    // Reczne ustawienie koloru niebieskiego
     u64 Blue = GS_SETREG_RGBA(0x00, 0x00, 0xFF, 0x80);
 
     while(1) {
-        // Czyścimy ekran na niebiesko
         gsKit_clear(gsGlobal, Blue);
         
         gsKit_queue_exec(gsGlobal);
