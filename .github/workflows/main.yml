@@ -6,6 +6,9 @@ jobs:
     container: ps2dev/ps2dev:latest
     steps:
       - uses: actions/checkout@v4
+      - name: Install Make
+        run: |
+          apk add make
       - name: Compile Game
         run: |
           make
