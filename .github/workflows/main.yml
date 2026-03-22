@@ -1,25 +1,19 @@
-#include <gsKit.h>
-#include <dmaKit.h>
-#include <malloc.h>
-
-int main(int argc, char *argv[]) {
-    GSGLOBAL *gsGlobal;
-    gsGlobal = gsKit_init_global();
-
-    dmaKit_init_all();
-    gsKit_init_screen(gsGlobal);
-
-    u64 Color = GS_SETREG_RGBAQ(255, 0, 0, 0x80, 0x00); // Czerwony kolor
-
-    while(1) {
-        gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x00, 0x40, 0x00, 0x00, 0x00)); // Zielone tło
-
-        // Rysujemy czerwony kwadrat (nasze auto)
-        gsKit_prim_sprite(gsGlobal, 200.0f, 200.0f, 300.0f, 300.0f, 1, Color);
-
-        gsKit_queue_exec(gsGlobal);
-        gsKit_sync_flip(gsGlobal);
-    }
-
-    return 0;
-}
+name: Build PS2 Game
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ps2dev/ps2dev:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Tools
+        run: |
+          apk add make
+      - name: Compile Game
+        run: |
+          make
+      - name: Upload ELF
+        uses: actions/upload-artifact@v4
+        with:
+          name: PS2-Game-File
+          path: MAIN.ELF
