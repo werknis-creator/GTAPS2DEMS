@@ -1,23 +1,17 @@
 #include <gsKit.h>
 #include <dmaKit.h>
-#include <libpad.h>
+#include <malloc.h>
 
-int main() {
+int main(int argc, char *argv[]) {
     GSGLOBAL *gsGlobal = gsKit_init_global();
     dmaKit_init_all();
     gsKit_init_screen(gsGlobal);
 
-    float carX = 320.0f; // Środek ekranu PS2
-    float carY = 240.0f;
+    u64 Color = GS_SETREG_RGBAQ(255, 0, 0, 0x80, 0x00);
 
     while(1) {
-        // Czyścimy ekran na zielono (trawa)
-        gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0, 100, 0, 0, 0));
-
-        // Rysujemy "Auto" (Czerwony prostokąt)
-        gsKit_prim_sprite(gsGlobal, carX - 25, carY - 15, carX + 25, carY + 15, 1, 
-                          GS_SETREG_RGBAQ(255, 0, 0, 0, 0));
-
+        gsKit_clear(gsGlobal, GS_SETREG_RGBAQ(0x00, 0x40, 0x00, 0x00, 0x00));
+        gsKit_prim_sprite(gsGlobal, 200.0f, 200.0f, 300.0f, 300.0f, 1, Color);
         gsKit_queue_exec(gsGlobal);
         gsKit_sync_flip(gsGlobal);
     }
