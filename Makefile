@@ -1,6 +1,6 @@
 EE_BIN = MAIN.ELF
 EE_OBJS = gta.o
-EE_LIBS = -lraylib -lgraph -ldraw -lpacket -ldma -lgraph -lmath3d -ldebug -lm
+EE_LIBS = -lgsKit -ldmaKit -ldraw -lgraph -lmath3d -lpacket -ldma -lm -ldebug
 
 all: $(EE_BIN)
 
