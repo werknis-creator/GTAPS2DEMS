@@ -7,12 +7,19 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Install System Dependencies
+      - name: Install gsKit and Dependencies
         run: |
-          apk add --no-cache make g++ mpc1-dev mpfr-dev gmp-dev
+          apk add --no-cache make
+          # Pobieramy gotowe paczki bibliotek dla PS2
+          ps2-packer-init
+          ps2-sdk-setup
+          # Instalujemy gsKit z repozytorium portów
+          ps2-port-setup gskit
 
       - name: Compile Game
         run: |
+          # Eksportujemy sciezki, zeby Makefile je widzial
+          export GS_KIT=$PS2DEV/gsKit
           make
 
       - name: Upload ELF
