@@ -1,6 +1,11 @@
 EE_BIN = MAIN.ELF
 EE_OBJS = gta.o
-EE_LIBS = -lgsKit -ldmaKit -ldraw -lgraph -lmath3d -lpacket -ldma -lm -lc -ldebug
+
+# Dodajemy sciezki do bibliotek gsKit, ktore sa w folderze 'ports'
+EE_INCS = -I$(PS2DEV)/gsKit/include -I$(PS2SDK)/ports/include
+EE_LDFLAGS = -L$(PS2DEV)/gsKit/lib -L$(PS2SDK)/ports/lib
+
+EE_LIBS = -lgsKit -ldmaKit -ldraw -lgraph -lmath3d -lpacket -ldma -lm
 
 all: $(EE_BIN)
 
